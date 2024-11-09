@@ -43,4 +43,5 @@ echo -e "${BOLD}${CYAN}노드를 구동합니다...${NC}"
 docker-compose up -d
 docker-compose logs -f
 
+echo -e "${YELLOW}대시보드는 다음과 같습니다: https://nodes.oceanprotocol.com${NC}"
 echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
