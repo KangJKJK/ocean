@@ -12,18 +12,25 @@ echo -e "${BOLD}${CYAN}필수 패키지 설치 중...${NC}"
 sudo apt-get update
 sudo apt-get -y upgrade
 
-# 도커 설치 확인
-echo -e "${BOLD}${CYAN}Docker 설치 확인 중...${NC}"
-if command -v docker >/dev/null 2>&1; then
-    echo -e "${GREEN}Docker가 이미 설치되어 있습니다.${NC}"
-else
-    echo -e "${RED}Docker가 설치되어 있지 않습니다. Docker를 설치하는 중입니다...${NC}"
-    sudo apt update && sudo apt install -y curl net-tools
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sudo sh get-docker.sh
-    echo -e "${GREEN}Docker가 성공적으로 설치되었습니다.${NC}"
-fi
-sudo apt-get install docker-compose
+# Docker GPG 키 추가
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# Docker 저장소 추가
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+# Docker 설치
+sudo apt-get update
+sudo apt-get install -y docker-ce
+
+# Docker Compose 설치
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Docker 서비스 시작
+sudo systemctl start docker
+
+# Docker 서비스가 부팅 시 자동으로 시작되도록 설정
+sudo systemctl enable docker
 
 # 사용 중인 포트 확인
 echo -e "${BOLD}${CYAN}현재 사용 중인 포트를 확인합니다...${NC}"
@@ -38,8 +45,6 @@ else
     read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
 fi
 
-read -q "설치 진행중에 개인키를 입력하는 단계가 있습니다. 개인키 앞에 0x를 꼭 붙여서 입력하세요. (엔터)"
-read -q "IP를 입력하는 단계가 있습니다. 본인의 VPS IP를 입력하세요. (엔터)"
 echo -e "${BOLD}${CYAN}설치파일을 다운받습니다...${NC}"
 curl -O https://raw.githubusercontent.com/oceanprotocol/ocean-node/main/scripts/ocean-node-quickstart.sh && chmod +x ocean-node-quickstart.sh && ./ocean-node-quickstart.sh
 
@@ -48,4 +53,4 @@ docker-compose up -d
 docker-compose logs -f
 
 echo -e "${YELLOW}대시보드는 다음과 같습니다: https://nodes.oceanprotocol.com${NC}"
-echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}
+echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
