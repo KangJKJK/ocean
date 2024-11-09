@@ -34,6 +34,7 @@ else
     echo -e "${BOLD}${CYAN}현재 사용 중인 포트:${NC}"
     echo "$used_ports"
     echo -e "${YELLOW}위의 포트 번호를 피하기 위해 이용중인 포트번호들을 기록해두세요.${NC}"
+    read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
 fi
 
 echo -e "${BOLD}${CYAN}설치파일을 다운받습니다...${NC}"
