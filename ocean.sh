@@ -11,6 +11,7 @@ NC='\033[0m' # No Color
 echo -e "${BOLD}${CYAN}필수 패키지 설치 중...${NC}"
 sudo apt-get update
 sudo apt-get -y upgrade
+sudo apt-get install -y ufw
 
 # Docker GPG 키 추가
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -45,13 +46,28 @@ else
     read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
 fi
 
+read -q "설치가 시작되고 난 후 본인이 입력한 port번호들을 꼭 기억해두세요.(총 4개의 port번호)"
 echo -e "${BOLD}${CYAN}설치파일을 다운받습니다...${NC}"
 curl -O https://raw.githubusercontent.com/oceanprotocol/ocean-node/main/scripts/ocean-node-quickstart.sh && chmod +x ocean-node-quickstart.sh && ./ocean-node-quickstart.sh
 
-echo -e "${YELLOW}대시보드는 다음과 같습니다: https://nodes.oceanprotocol.com${NC}"
-echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
-read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
-
 echo -e "${BOLD}${CYAN}노드를 구동합니다...${NC}"
 docker-compose up -d
-docker-compose logs -f
+
+# 포트 번호 입력 받기
+echo -e "${BOLD}${CYAN}본인이 입력한 4개의 포트 번호를 입력하세요 (쉼표로 구분): ${NC}"
+read -r ports_input
+
+# 포트 번호를 배열로 변환
+IFS=',' read -r -a ports <<< "$ports_input"
+
+# 각 포트에 대해 ufw allow 명령어 실행
+for port in "${ports[@]}"; do
+    sudo ufw allow "$port/tcp"
+done
+
+echo -e "${BOLD}${CYAN}아래는 당신의 PeerID입니다. 적어두세요.${NC}"
+docker-compose logs -f | grep "peerID"
+
+echo -e "${BOLD}${CYAN}노드를 구동한 다음날 이곳에 접속하세요: https://nodes.oceanprotocol.com${NC}"
+echo -e "${BOLD}${CYAN}Search칸에서 peerID를 입력하여 제대로 구동중인지 확인하세요${NC}"
+echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
