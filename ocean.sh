@@ -7,6 +7,11 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
+# 필수 패키지 설치
+echo -e "${BOLD}${CYAN}필수 패키지 설치 중...${NC}"
+sudo apt-get update
+sudo apt-get -y upgrade
+
 # 도커 설치 확인
 echo -e "${BOLD}${CYAN}Docker 설치 확인 중...${NC}"
 if command -v docker >/dev/null 2>&1; then
@@ -18,11 +23,7 @@ else
     sudo sh get-docker.sh
     echo -e "${GREEN}Docker가 성공적으로 설치되었습니다.${NC}"
 fi
-
-# 필수 패키지 설치
-echo -e "${BOLD}${CYAN}필수 패키지 설치 중...${NC}"
-sudo apt-get update
-sudo apt-get -y upgrade
+sudo apt-get install docker-compose
 
 # 사용 중인 포트 확인
 echo -e "${BOLD}${CYAN}현재 사용 중인 포트를 확인합니다...${NC}"
@@ -45,4 +46,4 @@ docker-compose up -d
 docker-compose logs -f
 
 echo -e "${YELLOW}대시보드는 다음과 같습니다: https://nodes.oceanprotocol.com${NC}"
-echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
+echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}
