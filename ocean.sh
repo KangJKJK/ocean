@@ -38,6 +38,8 @@ else
     read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
 fi
 
+read -q "설치 진행중에 개인키를 입력하는 단계가 있습니다. 개인키 앞에 0x를 꼭 붙여서 입력하세요. (엔터)"
+read -q "IP를 입력하는 단계가 있습니다. 본인의 VPS IP를 입력하세요. (엔터)"
 echo -e "${BOLD}${CYAN}설치파일을 다운받습니다...${NC}"
 curl -O https://raw.githubusercontent.com/oceanprotocol/ocean-node/main/scripts/ocean-node-quickstart.sh && chmod +x ocean-node-quickstart.sh && ./ocean-node-quickstart.sh
 
