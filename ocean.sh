@@ -48,9 +48,10 @@ fi
 echo -e "${BOLD}${CYAN}설치파일을 다운받습니다...${NC}"
 curl -O https://raw.githubusercontent.com/oceanprotocol/ocean-node/main/scripts/ocean-node-quickstart.sh && chmod +x ocean-node-quickstart.sh && ./ocean-node-quickstart.sh
 
+echo -e "${YELLOW}대시보드는 다음과 같습니다: https://nodes.oceanprotocol.com${NC}"
+echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
+read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
+
 echo -e "${BOLD}${CYAN}노드를 구동합니다...${NC}"
 docker-compose up -d
 docker-compose logs -f
-
-echo -e "${YELLOW}대시보드는 다음과 같습니다: https://nodes.oceanprotocol.com${NC}"
-echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
