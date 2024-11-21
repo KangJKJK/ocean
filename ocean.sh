@@ -46,7 +46,8 @@ else
     read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
 fi
 
-echo -e "${BOLD}${CYAN}노드 설치중 프라이빗키를 요구하는데 앞에 0x를 꼭 붙여주세요${NC}"
+echo -e "${BOLD}${CYAN}노드 설치중 프라이빗키를 요구하는데 N을 선택하여 새 지갑을 생성하세요.${NC}"
+echo -e "${BOLD}${CYAN}노드 설치중 관리자 지갑주소를 요구하는데 본인의 메타마스크 월렛 주소를 입력하세요.${NC}"
 read -q "설치가 시작되고 난 후 본인이 입력한 port번호들을 꼭 기억해두세요.(총 4개의 port번호)"
 echo -e "${BOLD}${CYAN}설치파일을 다운받습니다...${NC}"
 curl -O https://raw.githubusercontent.com/oceanprotocol/ocean-node/main/scripts/ocean-node-quickstart.sh && chmod +x ocean-node-quickstart.sh && ./ocean-node-quickstart.sh
