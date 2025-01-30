@@ -70,6 +70,7 @@ done
 echo -e "${BOLD}${CYAN}아래는 당신의 PeerID입니다. 적어두세요.${NC}"
 docker-compose logs -f | grep "peerID"
 
+echo -e "${BOLD}${CYAN}오류가 발생했다면 이 명령어를 다시 입력하세요:  docker-compose up -d${NC}"
 echo -e "${BOLD}${CYAN}노드를 구동한 다음날 이곳에 접속하세요: https://nodes.oceanprotocol.com${NC}"
 echo -e "${BOLD}${CYAN}Search칸에서 peerID를 입력하여 제대로 구동중인지 확인하세요${NC}"
 echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
