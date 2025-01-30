@@ -35,14 +35,14 @@ sudo systemctl enable docker
 
 # 사용 중인 포트 확인
 echo -e "${BOLD}${CYAN}현재 사용 중인 포트를 확인합니다...${NC}"
-used_ports=$(netstat -tuln | awk '{print $4}' | grep -E ':(8000|8100|9000|9100)' | cut -d':' -f2)
+used_ports=$(netstat -tuln | awk '{print $4}' | grep -E ':(9000|9001|9002|9003)' | cut -d':' -f2)
 
 if [ -z "$used_ports" ]; then
     echo -e "${YELLOW}사용 중인 포트가 없습니다. 안전하게 포트를 선택할 수 있습니다.${NC}"
 else
     echo -e "${BOLD}${CYAN}현재 사용 중인 포트:${NC}"
     echo "$used_ports"
-    echo -e "${YELLOW}위의 포트 번호를 피하기 위해 이용중인 포트번호들을 기록해두세요.${NC}"
+    echo -e "${YELLOW}9000~9003 포트가 있다면 반드시 기억하세요. 중복되선안됩니다. 8000 port는 그대로 사용하셔도 됩니다.${NC}"
     read -q "확인 후 Enter 키를 눌러 계속 진행하세요... "
 fi
 
